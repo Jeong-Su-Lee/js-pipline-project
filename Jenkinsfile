@@ -34,6 +34,13 @@ pipeline {
             }
          }
       }
+      stage("Tag and Push") {
+         steps {
+                sh "docker tag jenkins-pipeline_web:latest jeonogsoo0929/jenkins-app:${BUILD_NUMBER}"
+                sh "docker login -u jeonogsoo0929 -p wjdtn0929"
+                sh "docker push jeonogsoo0929/jenkins-app:${BUILD_NUMBER}"
+         }
+      }
       stage("deploy") {
          steps {
             sh "docker-compose up -d"
